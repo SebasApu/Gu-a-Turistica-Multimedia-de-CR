@@ -1,0 +1,24 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  background: #ffffff;
+  color: #f0ede4;
+  min-height: 100vh;
+}
+
+main {
+  max-width: 1280px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+#container {
+  background: #1a2e1d;
+  border-radius: 12px;
+  padding: 10px;
+}
