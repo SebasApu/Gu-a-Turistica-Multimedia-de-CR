@@ -1,0 +1,116 @@
+{
+  "destinos": [
+    {
+      "id": "catalinas",
+      "nombre": "Las Catalinas",
+      "region": "Pacífico Norte",
+      "tipo": "playa",
+      "x": 380,
+      "y": 240,
+      "descripcion": "Un pueblo costero de ensueño donde el tiempo parece detenerse. Playas de arena blanca, aguas cristalinas y arquitectura colonial.",
+      "highlights": [
+        "Playas vírgenes con arenas blancas",
+        "Snorkeling en aguas cristalinas",
+        "Arquitectura colonial única"
+      ]
+    },
+    {
+      "id": "miravalles",
+      "nombre": "Volcán Miravalles",
+      "region": "Pacífico Norte",
+      "tipo": "volcan",
+      "x": 416,
+      "y": 200,
+      "descripcion": "El gigante dormido del Pacífico Norte. Un volcán activo rodeado de aguas termales naturales, géiseres y piscinas de barro volcánico.",
+      "highlights": [
+        "Aguas termales naturales",
+        "Géiseres y fumarolas activas",
+        "Senderismo volcánico guiado"
+      ]
+    },
+    {
+      "id": "tortuguero",
+      "nombre": "Tortuguero",
+      "region": "Caribe",
+      "tipo": "playa",
+      "x": 670,
+      "y": 215,
+      "descripcion": "El Amazonas de Costa Rica. Un laberinto de canales navegables rodeado de selva tropical donde anidan las tortugas marinas.",
+      "highlights": [
+        "Anidación de tortugas marinas",
+        "Canales navegables en la selva",
+        "Fauna exótica: perezosos, caimanes, monos"
+      ]
+    },
+    {
+      "id": "puerto-viejo",
+      "nombre": "Puerto Viejo de Talamanca",
+      "region": "Caribe",
+      "tipo": "playa",
+      "x": 770,
+      "y": 460,
+      "descripcion": "Donde la cultura afrocaribeña se fusiona con la naturaleza. Playas de postal, arrecifes de coral, y una vibra relajada.",
+      "highlights": [
+        "Arrecifes de coral para buceo",
+        "Cultura afrocaribeña vibrante",
+        "Playas paradisíacas: Punta Uva, Manzanillo"
+      ]
+    },
+    {
+      "id": "irazu",
+      "nombre": "Volcán Irazú",
+      "region": "Región Central",
+      "tipo": "volcan",
+      "x": 615,
+      "y": 335,
+      "descripcion": "El coloso de Costa Rica. A 3.432 metros de altura, este volcán activo ofrece vistas panorámicas de ambos océanos en días despejados.",
+      "highlights": [
+        "Lago cratérico color esmeralda",
+        "Vista de ambos océanos",
+        "Paisaje lunar único"
+      ]
+    },
+    {
+      "id": "duran",
+      "nombre": "Sanatorio Durán",
+      "region": "Región Central",
+      "tipo": "ruinas",
+      "x": 615,
+      "y": 360,
+      "descripcion": "Un viaje al pasado. Las ruinas de este antiguo sanatorio de tuberculosis se alzan majestuosas entre las montañas.",
+      "highlights": [
+        "Ruinas históricas del siglo XX",
+        "Arquitectura de época preservada",
+        "Vistas panorámicas de montañas"
+      ]
+    },
+    {
+      "id": "corcovado",
+      "nombre": "Corcovado",
+      "region": "Región Sur",
+      "tipo": "selva",
+      "x": 660,
+      "y": 555,
+      "descripcion": "La joya biológica de Costa Rica. National Geographic lo llamó 'el lugar biológicamente más intenso del planeta'.",
+      "highlights": [
+        "Mayor biodiversidad del planeta",
+        "Jaguares, pumas y tapires",
+        "Selva primaria intacta"
+      ]
+    },
+    {
+      "id": "osa",
+      "nombre": "Península de Osa",
+      "region": "Región Sur",
+      "tipo": "selva",
+      "x": 700,
+      "y": 540,
+      "descripcion": "El último paraíso virgen. Una península remota donde la selva tropical se encuentra con el océano Pacífico.",
+      "highlights": [
+        "Ecoturismo de clase mundial",
+        "Bosques lluviosos primarios",
+        "Playas vírgenes y aisladas"
+      ]
+    }
+  ]
+}
