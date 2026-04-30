@@ -199,7 +199,7 @@ Los recursos multimedia se documentarán en `CREDITOS.md` a partir de la Fase 2.
 | Kristel Mariana Córdoba Carrillo | C22355 |
 | José Esteban Jarquín Espinoza | C23968 |
 | Sebastián Apu Guillén | C20501 |
-| Michelle Rodríguez Oviedo | C26650 |
+| Michelle Rodríguez Oviedo | C26655 |
 
 **Docente:** Lic. Iván Alonso Chavarría Cubero
 
