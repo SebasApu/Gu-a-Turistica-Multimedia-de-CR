@@ -3,6 +3,7 @@
     {
       "id": "catalinas",
       "nombre": "Las Catalinas",
+      "tooltip": "Pueblo costero ideal para caminar, relajarse y disfrutar de la playa.",
       "region": "Pacífico Norte",
       "tipo": "playa",
       "x": 380,
@@ -17,6 +18,7 @@
     {
       "id": "miravalles",
       "nombre": "Volcán Miravalles",
+      "tooltip": "Volcán famoso por sus aguas termales y paisajes naturales.",
       "region": "Pacífico Norte",
       "tipo": "volcan",
       "x": 416,
@@ -31,6 +33,7 @@
     {
       "id": "tortuguero",
       "nombre": "Tortuguero",
+      "tooltip": "Destino conocido por sus canales y tortugas marinas.",
       "region": "Caribe",
       "tipo": "playa",
       "x": 670,
@@ -45,6 +48,7 @@
     {
       "id": "puerto-viejo",
       "nombre": "Puerto Viejo de Talamanca",
+      "tooltip": "Pueblo caribeño con playas y ambiente relajado.",
       "region": "Caribe",
       "tipo": "playa",
       "x": 770,
@@ -59,6 +63,7 @@
     {
       "id": "irazu",
       "nombre": "Volcán Irazú",
+      "tooltip": "Volcán con impresionantes vistas y un gran cráter.",
       "region": "Región Central",
       "tipo": "volcan",
       "x": 615,
@@ -73,6 +78,7 @@
     {
       "id": "duran",
       "nombre": "Sanatorio Durán",
+      "tooltip": "Antiguo sanatorio famoso por su historia y misterio.",
       "region": "Región Central",
       "tipo": "ruinas",
       "x": 615,
@@ -87,6 +93,7 @@
     {
       "id": "corcovado",
       "nombre": "Corcovado",
+      "tooltip": "Parque nacional lleno de biodiversidad y selva tropical.",
       "region": "Región Sur",
       "tipo": "selva",
       "x": 660,
@@ -101,6 +108,7 @@
     {
       "id": "osa",
       "nombre": "Península de Osa",
+      "tooltip": "Región natural ideal para ecoturismo y aventura.",
       "region": "Región Sur",
       "tipo": "selva",
       "x": 700,
