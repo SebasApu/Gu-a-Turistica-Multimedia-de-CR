@@ -1,50 +1,38 @@
-import './destino-card.js';
-
 const COLORES = {
-  volcan: '#ef4444',
-  playa: '#06b6d4',
-  selva: '#10b981',
-  ruinas: '#f59e0b',
-  default: '#6366f1'
+  volcan: "#ef4444",
+  playa: "#06b6d4",
+  selva: "#10b981",
+  ruinas: "#f59e0b",
+  default: "#6366f1",
 };
 
 const ETIQUETAS_TIPO = {
-  volcan: 'Volcanes',
-  playa: 'Playas',
-  selva: 'Selvas',
-  ruinas: 'Ruinas'
+  volcan: "Volcanes",
+  playa: "Playas",
+  selva: "Selvas",
+  ruinas: "Ruinas",
 };
 
-const VIEW_BOX = '120 50 760 540';
+const VIEW_BOX = "120 50 760 540";
 
 class MapaCostaRica extends HTMLElement {
-
   constructor() {
-
     super();
 
     this.destinos = [];
 
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({ mode: "open" });
   }
 
   connectedCallback() {
-
-    this.rutaJson =
-      this.getAttribute('destinos') ||
-      './data/destinos.json';
-
-    this.rutaSvg =
-      this.getAttribute('svg') ||
-      './assets/img/cr.svg';
+    this.rutaJson = this.getAttribute("destinos") || "./data/destinos.json";
+    this.rutaSvg = this.getAttribute("svg") || "./assets/img/cr.svg";
 
     this._render();
-
     this._cargarTodo();
   }
 
   _render() {
-
     this.shadowRoot.innerHTML = `
       <style>
 
@@ -140,6 +128,7 @@ class MapaCostaRica extends HTMLElement {
       <div class="wrap">
 
         <div class="mapa">
+          <div class="leyenda"></div>
 
           <div class="svg-contenedor">
 
@@ -158,141 +147,81 @@ class MapaCostaRica extends HTMLElement {
 
         </div>
 
-        <div class="leyenda"></div>
-
-        <destino-card hidden></destino-card>
-
       </div>
     `;
   }
 
   async _cargarTodo() {
-
-    await Promise.all([
-      this._cargarSvg(),
-      this._cargarDestinos()
-    ]);
+    await Promise.all([this._cargarSvg(), this._cargarDestinos()]);
 
     this._pintarMarcadores();
-
     this._pintarLeyenda();
   }
 
   async _cargarSvg() {
-
     try {
-
-      const resp =
-        await fetch(this.rutaSvg);
+      const resp = await fetch(this.rutaSvg);
 
       if (!resp.ok) {
-        throw new Error(
-          `HTTP ${resp.status}`
-        );
+        throw new Error(`HTTP ${resp.status}`);
       }
 
-      let svgTexto =
-        await resp.text();
+      let svgTexto = await resp.text();
 
-      svgTexto = svgTexto.replace(
-        /viewBox="[^"]*"/i,
-        `viewBox="${VIEW_BOX}"`
-      );
+      svgTexto = svgTexto.replace(/viewBox="[^"]*"/i, `viewBox="${VIEW_BOX}"`);
 
-      this.shadowRoot
-        .querySelector('.svg-pais')
-        .innerHTML = svgTexto;
-
+      this.shadowRoot.querySelector(".svg-pais").innerHTML = svgTexto;
     } catch (err) {
-
-      console.error(
-        '[mapa-costa-rica] error cargando SVG:',
-        err
-      );
+      console.error("[mapa-costa-rica] error cargando SVG:", err);
     }
   }
 
   async _cargarDestinos() {
-
     try {
-
-      const resp =
-        await fetch(this.rutaJson);
+      const resp = await fetch(this.rutaJson);
 
       if (!resp.ok) {
-        throw new Error(
-          `HTTP ${resp.status}`
-        );
+        throw new Error(`HTTP ${resp.status}`);
       }
 
-      const data =
-        await resp.json();
+      const data = await resp.json();
 
-      this.destinos =
-        data.destinos || [];
-
+      this.destinos = data.destinos || [];
     } catch (err) {
-
-      console.error(
-        '[mapa-costa-rica] error cargando destinos:',
-        err
-      );
+      console.error("[mapa-costa-rica] error cargando destinos:", err);
     }
   }
 
   _pintarMarcadores() {
-
-    const grupo =
-      this.shadowRoot.querySelector(
-        '.marcadores'
-      );
+    const grupo = this.shadowRoot.querySelector(".marcadores");
 
     if (!grupo) return;
 
-    grupo.innerHTML = '';
+    grupo.innerHTML = "";
 
-    this.destinos.forEach(d => {
+    this.destinos.forEach((d) => {
+      const color = COLORES[d.tipo] || COLORES.default;
 
-      const color =
-        COLORES[d.tipo] ||
-        COLORES.default;
+      const gPin = document.createElementNS("http://www.w3.org/2000/svg", "g");
 
-      const gPin =
-        document.createElementNS(
-          'http://www.w3.org/2000/svg',
-          'g'
-        );
+      gPin.setAttribute("class", "pin");
 
-      gPin.setAttribute(
-        'class',
-        'pin'
-      );
+      gPin.setAttribute("transform", `translate(${d.x}, ${d.y})`);
 
-      gPin.setAttribute(
-        'transform',
-        `translate(${d.x}, ${d.y})`
-      );
-
-      const palabras =
-        d.tooltip.split(' ');
+      const palabras = d.tooltip.split(" ");
 
       const lineas = [];
 
-      let lineaActual = '';
+      let lineaActual = "";
 
-      palabras.forEach(palabra => {
-
-        const test =
-          `${lineaActual} ${palabra}`.trim();
+      palabras.forEach((palabra) => {
+        const test = `${lineaActual} ${palabra}`.trim();
 
         if (test.length > 32) {
-
           lineas.push(lineaActual);
 
           lineaActual = palabra;
-
         } else {
-
           lineaActual = test;
         }
       });
@@ -301,25 +230,23 @@ class MapaCostaRica extends HTMLElement {
         lineas.push(lineaActual);
       }
 
-      const altura =
-        42 + (lineas.length * 14);
+      const altura = 42 + lineas.length * 14;
 
-      const tspans =
-        lineas.map((linea, i) => `
+      const tspans = lineas
+        .map(
+          (linea, i) => `
           <tspan
             x="12"
             dy="${i === 0 ? 0 : 14}">
             ${linea}
           </tspan>
-        `).join('');
+        `,
+        )
+        .join("");
 
-      const moverIzquierda =
-        d.x > 620;
+      const moverIzquierda = d.x > 620;
 
-      const tooltipX =
-        moverIzquierda
-          ? -250
-          : 16;
+      const tooltipX = moverIzquierda ? -250 : 16;
 
       gPin.innerHTML = `
         <circle
@@ -372,32 +299,26 @@ class MapaCostaRica extends HTMLElement {
         </g>
       `;
 
-      gPin.addEventListener(
-        'click',
-        () => {
-
-          this.shadowRoot
-            .querySelector('destino-card')
-            .mostrar(d);
-        }
-      );
+      gPin.addEventListener("click", () => {
+        this.dispatchEvent(
+          new CustomEvent("destino-seleccionado", {
+            bubbles: true,
+            composed: true,
+            detail: { destinoId: d.id },
+          }),
+        );
+      });
 
       grupo.appendChild(gPin);
     });
   }
 
   _pintarLeyenda() {
+    const tiposPresentes = [...new Set(this.destinos.map((d) => d.tipo))];
 
-    const tiposPresentes = [
-      ...new Set(
-        this.destinos.map(
-          d => d.tipo
-        )
-      )
-    ];
-
-    const html =
-      tiposPresentes.map(tipo => `
+    const html = tiposPresentes
+      .map(
+        (tipo) => `
         <span class="leyenda-item">
 
           <span
@@ -411,15 +332,12 @@ class MapaCostaRica extends HTMLElement {
           ${ETIQUETAS_TIPO[tipo] || tipo}
 
         </span>
-      `).join('');
+      `,
+      )
+      .join("");
 
-    this.shadowRoot
-      .querySelector('.leyenda')
-      .innerHTML = html;
+    this.shadowRoot.querySelector(".leyenda").innerHTML = html;
   }
 }
 
-customElements.define(
-  'mapa-costa-rica',
-  MapaCostaRica
-);
+customElements.define("mapa-costa-rica", MapaCostaRica);
