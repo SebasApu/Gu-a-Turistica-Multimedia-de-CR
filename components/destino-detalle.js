@@ -108,8 +108,8 @@ class DestinoDetalle extends HTMLElement {
 					<destino-card hidden></destino-card>
 
 					<div class="audio-seccion">
-				<div class="audio-encabezado">Guía de audio</div>
-				<p class="audio-descripcion">Escucha una breve narración del destino con controles sencillos.</p>
+				<div class="audio-encabezado">Audioguía</div>
+				<p class="audio-descripcion">Conoce los detalles de este destino a través de una breve narración.</p>
 				<audio-guia></audio-guia>
 			</div>
 		</section>
@@ -197,6 +197,9 @@ class DestinoDetalle extends HTMLElement {
 				"label",
 				destino.audioLabel || audioMeta.label || `Guía de audio de ${destino.nombre}`
 				);
+			if (destino.audioDuration || audioMeta.duration) {
+				audioEl.setAttribute("duration", destino.audioDuration || audioMeta.duration);
+			}
 		}
 	}
 }
