@@ -1,0 +1,36 @@
+{
+  "audios": {
+    "catalinas": {
+      "src": "assets/audio/catalinas-guia.mp3",
+      "label": "Guía de audio de Las Catalinas"
+    },
+    "miravalles": {
+      "src": "assets/audio/miravalles-guia.mp3",
+      "label": "Guía de audio del Volcán Miravalles"
+    },
+    "tortuguero": {
+      "src": "assets/audio/tortuguero-guia.mp3",
+      "label": "Guía de audio de Tortuguero"
+    },
+    "puerto-viejo": {
+      "src": "assets/audio/puerto-viejo-guia.mp3",
+      "label": "Guía de audio de Puerto Viejo"
+    },
+    "irazu": {
+      "src": "assets/audio/irazu-guia.mp3",
+      "label": "Guía de audio del Volcán Irazú"
+    },
+    "duran": {
+      "src": "assets/audio/duran-guia.mp3",
+      "label": "Guía de audio de Sanatorio Durán"
+    },
+    "corcovado": {
+      "src": "assets/audio/corcovado-guia.mp3",
+      "label": "Guía de audio de Corcovado"
+    },
+    "osa": {
+      "src": "assets/audio/osa-guia.mp3",
+      "label": "Guía de audio de la Península de Osa"
+    }
+  }
+}
