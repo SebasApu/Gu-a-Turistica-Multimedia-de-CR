@@ -171,13 +171,19 @@ class AppHeader extends HTMLElement {
 
     this.shadowRoot.querySelectorAll('button').forEach(btn => {
       btn.addEventListener('click', () => {
+        const yaActivo = btn.classList.contains('active');
+
+        // Quitar activo de todos
         this.shadowRoot.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+
+        // Toggle: si ya estaba activo, deseleccionar (mostrar todo)
+        const region = yaActivo ? null : btn.dataset.region;
+        if (!yaActivo) btn.classList.add('active');
 
         this.dispatchEvent(new CustomEvent('region-selected', {
           bubbles: true,
           composed: true,
-          detail: { region: btn.dataset.region }
+          detail: { region }
         }));
       });
     });
