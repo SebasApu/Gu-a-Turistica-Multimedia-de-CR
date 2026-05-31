@@ -13,6 +13,12 @@
         "Playas vírgenes con arenas blancas",
         "Snorkeling en aguas cristalinas",
         "Arquitectura colonial única"
+      ],
+      "imagen_portada": "assets/img/catalinas-1.jpg",
+      "galeria": [
+        "assets/img/catalinas-1.jpg",
+        "assets/img/catalinas-2.jpg",
+        "assets/img/catalinas-3.jpg"
       ]
     },
     {
@@ -28,6 +34,13 @@
         "Aguas termales naturales",
         "Géiseres y fumarolas activas",
         "Senderismo volcánico guiado"
+      ],
+      "imagen_portada": "assets/img/miravalles-1.jpg",
+      "galeria": [
+        "assets/img/miravalles-1.jpg",
+        "assets/img/miravalles-2.jpg",
+        "assets/img/miravalles-3.jpg",
+        "assets/img/miravalles-4.jpg"
       ]
     },
     {
@@ -43,6 +56,13 @@
         "Anidación de tortugas marinas",
         "Canales navegables en la selva",
         "Fauna exótica: perezosos, caimanes, monos"
+      ],
+      "imagen_portada": "assets/img/tortuguero-1.jpg",
+      "galeria": [
+        "assets/img/tortuguero-1.jpg",
+        "assets/img/tortuguero-2.jpg",
+        "assets/img/tortuguero-3.jpg",
+        "assets/img/tortuguero-4.jpg"
       ]
     },
     {
@@ -58,6 +78,13 @@
         "Arrecifes de coral para buceo",
         "Cultura afrocaribeña vibrante",
         "Playas paradisíacas: Punta Uva, Manzanillo"
+      ],
+      "imagen_portada": "assets/img/puerto-viejo-1.jpg",
+      "galeria": [
+        "assets/img/puerto-viejo-1.jpg",
+        "assets/img/puerto-viejo-2.jpg",
+        "assets/img/puerto-viejo-3.jpg",
+        "assets/img/puerto-viejo-4.jpg"
       ]
     },
     {
@@ -73,6 +100,12 @@
         "Lago cratérico color esmeralda",
         "Vista de ambos océanos",
         "Paisaje lunar único"
+      ],
+      "imagen_portada": "assets/img/irazu-1.jpg",
+      "galeria": [
+        "assets/img/irazu-1.jpg",
+        "assets/img/irazu-2.jpg",
+        "assets/img/irazu-3.jpg"
       ]
     },
     {
@@ -88,6 +121,13 @@
         "Ruinas históricas del siglo XX",
         "Arquitectura de época preservada",
         "Vistas panorámicas de montañas"
+      ],
+      "imagen_portada": "assets/img/duran-1.jpg",
+      "galeria": [
+        "assets/img/duran-1.jpg",
+        "assets/img/duran-2.jpg",
+        "assets/img/duran-3.jpg",
+        "assets/img/duran-4.jpg"
       ]
     },
     {
@@ -103,6 +143,12 @@
         "Mayor biodiversidad del planeta",
         "Jaguares, pumas y tapires",
         "Selva primaria intacta"
+      ],
+      "imagen_portada": "assets/img/corcovado-1.jpg",
+      "galeria": [
+        "assets/img/corcovado-1.jpg",
+        "assets/img/corcovado-2.jpg",
+        "assets/img/corcovado-3.jpg"
       ]
     },
     {
@@ -118,6 +164,13 @@
         "Ecoturismo de clase mundial",
         "Bosques lluviosos primarios",
         "Playas vírgenes y aisladas"
+      ],
+      "imagen_portada": "assets/img/osa-1.jpg",
+      "galeria": [
+        "assets/img/osa-1.jpg",
+        "assets/img/osa-2.jpg",
+        "assets/img/osa-3.jpg",
+        "assets/img/osa-4.jpg"
       ]
     }
   ]

@@ -1,3 +1,5 @@
+import "./galeria-imagenes.js";
+
 const COLORES_CARD = {
   volcan: '#ef4444',
   playa: '#06b6d4',
@@ -126,6 +128,14 @@ class DestinoCard extends HTMLElement {
         <p>
           ${d.descripcion}
         </p>
+
+        ${
+          d.galeria?.length
+            ? `<galeria-imagenes imagenes='${JSON.stringify(d.galeria)}'></galeria-imagenes>`
+            : d.imagen_portada
+              ? `<img src="${d.imagen_portada}" alt="${d.nombre}" style="width:100%;border-radius:8px;margin:10px 0;" />`
+              : ''
+        }
 
         ${
           d.highlights?.length
