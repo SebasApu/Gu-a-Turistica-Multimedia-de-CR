@@ -57,11 +57,12 @@ class GaleriaImagenes extends HTMLElement {
           max-width: 100%;
           max-height: 100%;
           width: auto;
-          height: 100%;
+          height: auto;
           object-fit: contain;
           display: block;
           transition: opacity 0.3s ease;
           z-index: 1;
+          background: #f3f4f6;
         }
 
         .vacio {
@@ -118,8 +119,14 @@ class GaleriaImagenes extends HTMLElement {
       </div>
     `;
 
-    this.shadowRoot.getElementById("btn-anterior").addEventListener("click", () => this._navegar(-1));
-    this.shadowRoot.getElementById("btn-siguiente").addEventListener("click", () => this._navegar(1));
+    this.shadowRoot.getElementById("btn-anterior").addEventListener("click", (e) => {
+      e.stopPropagation();
+      this._navegar(-1);
+    });
+    this.shadowRoot.getElementById("btn-siguiente").addEventListener("click", (e) => {
+      e.stopPropagation();
+      this._navegar(1);
+    });
 
     this._actualizar();
   }
@@ -154,13 +161,21 @@ class GaleriaImagenes extends HTMLElement {
     if (hayImagenes) {
       const src = this._imagenes[this._indice];
       foto.style.opacity = '0';
+      
+      // Resetea la imagen para forzar la recarga
+      foto.src = '';
+      
+      // Espera a que la imagen cargue
+      const handleLoad = () => {
+        if (fondo) fondo.style.backgroundImage = `url('${src}')`;
+        foto.style.opacity = '1';
+        foto.removeEventListener('load', handleLoad);
+      };
+      
+      foto.addEventListener('load', handleLoad);
       foto.src = src;
       foto.alt = `Imagen ${this._indice + 1} de ${this._imagenes.length}`;
       contador.textContent = `${this._indice + 1} / ${this._imagenes.length}`;
-      foto.onload = () => {
-        if (fondo) fondo.style.backgroundImage = `url('${src}')`;
-        foto.style.opacity = '1';
-      };
     }
   }
 }
