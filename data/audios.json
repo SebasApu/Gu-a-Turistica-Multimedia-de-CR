@@ -1,0 +1,52 @@
+{
+  "audios": {
+    "catalinas": {
+      "src": "assets/audio/LasCatalinas.mp3",
+      "label": "Las Catalinas",
+      "duration": 21,
+      "lang": "es"
+    },
+    "miravalles": {
+      "src": "assets/audio/VolcanMiravalles.mp3",
+      "label": "Volcán Miravalles",
+      "duration": 22,
+      "lang": "es"
+    },
+    "tortuguero": {
+      "src": "assets/audio/Tortuguero.mp3",
+      "label": "Tortuguero",
+      "duration": 21,
+      "lang": "es"
+    },
+    "puerto-viejo": {
+      "src": "assets/audio/PuertoViejoTalamanca.mp3",
+      "label": "Puerto Viejo de Talamanca",
+      "duration": 21,
+      "lang": "es"
+    },
+    "irazu": {
+      "src": "assets/audio/VolcanIrazu.mp3",
+      "label": "Volcán Irazú",
+      "duration": 22,
+      "lang": "es"
+    },
+    "duran": {
+      "src": "assets/audio/SanatorioDuran.mp3",
+      "label": "Sanatorio Durán",
+      "duration": 20,
+      "lang": "es"
+    },
+    "corcovado": {
+      "src": "assets/audio/Corcovado.mp3",
+      "label": "Corcovado",
+      "duration": 20,
+      "lang": "es"
+    },
+    "osa": {
+      "src": "assets/audio/PeninsulaOsa.mp3",
+      "label": "Península de Osa",
+      "duration": 19,
+      "lang": "es"
+    }
+  }
+}

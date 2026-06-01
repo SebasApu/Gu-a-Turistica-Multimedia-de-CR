@@ -1,22 +1,25 @@
 import "./destino-card.js";
+import "./audio-guia.js";
 
 class DestinoDetalle extends HTMLElement {
   constructor() {
     super();
 
     this.destinos = [];
+    this.audios = {};
     this.destinoSeleccionado = null;
-		this._onDestinoSeleccionado = this._onDestinoSeleccionado.bind(this);
+    this._onDestinoSeleccionado = this._onDestinoSeleccionado.bind(this);
 
-		this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: "open" });
   }
 
   connectedCallback() {
     this.rutaJson = this.getAttribute("destinos") || "./data/destinos.json";
+    this.rutaAudios = this.getAttribute("audios") || "./data/audios.json";
 
     this._render();
-		document.addEventListener("destino-seleccionado", this._onDestinoSeleccionado);
-    this._cargarDestinos();
+    document.addEventListener("destino-seleccionado", this._onDestinoSeleccionado);
+    this._cargarDatos();
   }
 
 	disconnectedCallback() {
@@ -65,25 +68,71 @@ class DestinoDetalle extends HTMLElement {
 					display: block;
 					margin-top: 1.25rem;
 				}
-			</style>
 
-			<section class="contenedor">
-				<div class="encabezado">
-					<h2>Detalle del destino</h2>
-					<p>Selecciona un punto del mapa para ver sus datos aquí.</p>
-				</div>
+					.audio-seccion {
+						margin-top: 1.75rem;
+						padding: 1.25rem;
+						background: #f8fafc;
+						border: 1px solid #e5e7eb;
+						border-radius: 18px;
+					}
 
-				<div class="estado" hidden>
-					Cargando detalle...
-				</div>
+					.audio-encabezado {
+						font-weight: 700;
+						color: #111827;
+						margin-bottom: 0.45rem;
+					}
 
-				<div class="estado-seleccion" hidden>
-					Esperando selección del mapa...
-				</div>
+					.audio-descripcion {
+						margin: 0;
+						color: #4b5563;
+						line-height: 1.5;
+						margin-bottom: 1rem;
+					}
+				</style>
 
-				<destino-card hidden></destino-card>
-			</section>
+				<section class="contenedor">
+					<div class="encabezado">
+						<h2>Detalle del destino</h2>
+						<p>Selecciona un punto del mapa para ver sus datos aquí.</p>
+					</div>
+
+					<div class="estado" hidden>
+						Cargando detalle...
+					</div>
+
+					<div class="estado-seleccion" hidden>
+						Esperando selección del mapa...
+					</div>
+
+					<destino-card hidden></destino-card>
+
+					<div class="audio-seccion">
+				<div class="audio-encabezado">Audioguía</div>
+				<p class="audio-descripcion">Conoce los detalles de este destino a través de una breve narración.</p>
+				<audio-guia></audio-guia>
+			</div>
+		</section>
 		`;
+  }
+
+  async _cargarDatos() {
+    await Promise.all([this._cargarDestinos(), this._cargarAudios()]);
+  }
+
+  async _cargarAudios() {
+    try {
+      const resp = await fetch(this.rutaAudios);
+      if (!resp.ok) {
+        throw new Error(`HTTP ${resp.status}`);
+      }
+
+      const data = await resp.json();
+      this.audios = data.audios || {};
+    } catch (err) {
+      console.error("[destino-detalle] error cargando audios:", err);
+      this.audios = {};
+    }
   }
 
   async _cargarDestinos() {
@@ -137,7 +186,21 @@ class DestinoDetalle extends HTMLElement {
 		if (seleccion) {
 			seleccion.hidden = true;
 		}
+
 		this.shadowRoot.querySelector("destino-card").mostrar(destino);
+
+		const audioMeta = this.audios[destino.id] || {};
+		const audioEl = this.shadowRoot.querySelector("audio-guia");
+		if (audioEl) {
+			audioEl.setAttribute("src", destino.audio || audioMeta.src || "");
+			audioEl.setAttribute(
+				"label",
+				destino.audioLabel || audioMeta.label || `Guía de audio de ${destino.nombre}`
+				);
+			if (destino.audioDuration || audioMeta.duration) {
+				audioEl.setAttribute("duration", destino.audioDuration || audioMeta.duration);
+			}
+		}
 	}
 }
 
