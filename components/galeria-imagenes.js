@@ -29,14 +29,16 @@ class GaleriaImagenes extends HTMLElement {
       <style>
         :host {
           display: block;
+          width: 100%; /* 1. Obligamos al componente a no desbordar su padre */
           font-family: system-ui, sans-serif;
         }
 
         .galeria {
           position: relative;
+          width: 100%; /* 2. Ancho estricto */
           border-radius: 12px;
           overflow: hidden;
-          aspect-ratio: 16 / 9;
+          aspect-ratio: 16 / 9; /* La caja siempre mantendrá esta proporción */
           display: flex;
           align-items: center;
           justify-content: center;
@@ -53,15 +55,15 @@ class GaleriaImagenes extends HTMLElement {
         }
 
         img {
-          position: relative;
-          max-width: 100%;
-          max-height: 100%;
-          width: auto;
+          position: absolute; /* 3. Sacamos la imagen del flujo normal */
+          inset: 0; /* Hace que ocupe desde las coordenadas 0,0,0,0 */
+          width: 100%;
           height: 100%;
-          object-fit: contain;
+          object-fit: contain; /* Mantiene la proporción de la imagen sin deformarla */
           display: block;
           transition: opacity 0.3s ease;
           z-index: 1;
+          /* background: #f3f4f6; (Puedes quitar el background aquí para que el '.fondo' borroso se vea mejor a través de los espacios vacíos) */
         }
 
         .vacio {
@@ -118,8 +120,14 @@ class GaleriaImagenes extends HTMLElement {
       </div>
     `;
 
-    this.shadowRoot.getElementById("btn-anterior").addEventListener("click", () => this._navegar(-1));
-    this.shadowRoot.getElementById("btn-siguiente").addEventListener("click", () => this._navegar(1));
+    this.shadowRoot.getElementById("btn-anterior").addEventListener("click", (e) => {
+      e.stopPropagation();
+      this._navegar(-1);
+    });
+    this.shadowRoot.getElementById("btn-siguiente").addEventListener("click", (e) => {
+      e.stopPropagation();
+      this._navegar(1);
+    });
 
     this._actualizar();
   }
@@ -154,13 +162,21 @@ class GaleriaImagenes extends HTMLElement {
     if (hayImagenes) {
       const src = this._imagenes[this._indice];
       foto.style.opacity = '0';
+      
+      // Resetea la imagen para forzar la recarga
+      foto.src = '';
+      
+      // Espera a que la imagen cargue
+      const handleLoad = () => {
+        if (fondo) fondo.style.backgroundImage = `url('${src}')`;
+        foto.style.opacity = '1';
+        foto.removeEventListener('load', handleLoad);
+      };
+      
+      foto.addEventListener('load', handleLoad);
       foto.src = src;
       foto.alt = `Imagen ${this._indice + 1} de ${this._imagenes.length}`;
       contador.textContent = `${this._indice + 1} / ${this._imagenes.length}`;
-      foto.onload = () => {
-        if (fondo) fondo.style.backgroundImage = `url('${src}')`;
-        foto.style.opacity = '1';
-      };
     }
   }
 }
