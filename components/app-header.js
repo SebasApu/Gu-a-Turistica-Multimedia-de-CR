@@ -1,5 +1,16 @@
 class AppHeader extends HTMLElement {
 
+  static get observedAttributes() {
+    return ['active-region'];
+  }
+
+  attributeChangedCallback(nombre, anterior, nuevo) {
+    if (nombre !== 'active-region' || !this.shadowRoot) return;
+    this.shadowRoot.querySelectorAll('button').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.region === nuevo);
+    });
+  }
+
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
 
@@ -179,6 +190,13 @@ class AppHeader extends HTMLElement {
         // Toggle: si ya estaba activo, deseleccionar (mostrar todo)
         const region = yaActivo ? null : btn.dataset.region;
         if (!yaActivo) btn.classList.add('active');
+
+        // Sincroniza el atributo observable
+        if (region) {
+          this.setAttribute('active-region', region);
+        } else {
+          this.removeAttribute('active-region');
+        }
 
         this.dispatchEvent(new CustomEvent('region-selected', {
           bubbles: true,

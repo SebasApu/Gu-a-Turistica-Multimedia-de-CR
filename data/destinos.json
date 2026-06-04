@@ -3,175 +3,214 @@
     {
       "id": "catalinas",
       "nombre": "Las Catalinas",
-      "tooltip": "Pueblo costero ideal para caminar, relajarse y disfrutar de la playa.",
       "region": "Pacífico Norte",
       "tipo": "playa",
-      "x": 380,
-      "y": 240,
       "descripcion": "Un pueblo costero de ensueño donde el tiempo parece detenerse. Playas de arena blanca, aguas cristalinas y arquitectura colonial.",
-      "highlights": [
-        "Playas vírgenes con arenas blancas",
-        "Snorkeling en aguas cristalinas",
-        "Arquitectura colonial única"
-      ],
       "imagen_portada": "assets/img/catalinas-1.jpg",
       "galeria": [
         "assets/img/catalinas-1.jpg",
         "assets/img/catalinas-2.jpg",
         "assets/img/catalinas-3.jpg"
-      ]
+      ],
+      "audio": "assets/audio/LasCatalinas.mp3",
+      "video": "assets/video/catalinas.mp4",
+      "actividades": ["Snorkel", "Surf", "Kayak", "Senderismo en playa"],
+      "highlights": [
+        "Playas vírgenes con arenas blancas",
+        "Snorkeling en aguas cristalinas",
+        "Arquitectura colonial única"
+      ],
+      "tooltip": "Pueblo costero ideal para caminar, relajarse y disfrutar de la playa.",
+      "lat": 10.581,
+      "lng": -85.618,
+      "x": 380,
+      "y": 240
     },
     {
       "id": "miravalles",
       "nombre": "Volcán Miravalles",
-      "tooltip": "Volcán famoso por sus aguas termales y paisajes naturales.",
       "region": "Pacífico Norte",
       "tipo": "volcan",
-     "x": 416,
-      "y": 200,
       "descripcion": "El gigante dormido del Pacífico Norte. Un volcán activo rodeado de aguas termales naturales, géiseres y piscinas de barro volcánico.",
-      "highlights": [
-        "Aguas termales naturales",
-        "Géiseres y fumarolas activas",
-        "Senderismo volcánico guiado"
-      ],
       "imagen_portada": "assets/img/miravalles-1.jpg",
       "galeria": [
         "assets/img/miravalles-1.jpg",
         "assets/img/miravalles-2.jpg",
         "assets/img/miravalles-3.jpg",
         "assets/img/miravalles-4.jpg"
-      ]
+      ],
+      "audio": "assets/audio/VolcanMiravalles.mp3",
+      "video": "assets/video/miravalles.mp4",
+      "actividades": ["Aguas termales", "Senderismo volcánico", "Observación de géiseres", "Baños de barro volcánico"],
+      "highlights": [
+        "Aguas termales naturales",
+        "Géiseres y fumarolas activas",
+        "Senderismo volcánico guiado"
+      ],
+      "tooltip": "Volcán famoso por sus aguas termales y paisajes naturales.",
+      "lat": 10.744,
+      "lng": -85.163,
+      "x": 416,
+      "y": 200
     },
     {
       "id": "tortuguero",
       "nombre": "Tortuguero",
-      "tooltip": "Destino conocido por sus canales y tortugas marinas.",
       "region": "Caribe",
       "tipo": "playa",
-       "x": 670,
-      "y": 215,
       "descripcion": "El Amazonas de Costa Rica. Un laberinto de canales navegables rodeado de selva tropical donde anidan las tortugas marinas.",
-      "highlights": [
-        "Anidación de tortugas marinas",
-        "Canales navegables en la selva",
-        "Fauna exótica: perezosos, caimanes, monos"
-      ],
       "imagen_portada": "assets/img/tortuguero-1.jpg",
       "galeria": [
         "assets/img/tortuguero-1.jpg",
         "assets/img/tortuguero-2.jpg",
         "assets/img/tortuguero-3.jpg",
         "assets/img/tortuguero-4.jpg"
-      ]
+      ],
+      "audio": "assets/audio/Tortuguero.mp3",
+      "video": "assets/video/tortuguero.mp4",
+      "actividades": ["Observación de tortugas", "Tours en canoa", "Avistamiento de fauna", "Fotografía de naturaleza"],
+      "highlights": [
+        "Anidación de tortugas marinas",
+        "Canales navegables en la selva",
+        "Fauna exótica: perezosos, caimanes, monos"
+      ],
+      "tooltip": "Destino conocido por sus canales y tortugas marinas.",
+      "lat": 10.537,
+      "lng": -83.503,
+      "x": 670,
+      "y": 215
     },
     {
       "id": "puerto-viejo",
       "nombre": "Puerto Viejo de Talamanca",
-      "tooltip": "Pueblo caribeño con playas y ambiente relajado.",
       "region": "Caribe",
       "tipo": "playa",
-      "x": 770,
-      "y": 460,
       "descripcion": "Donde la cultura afrocaribeña se fusiona con la naturaleza. Playas de postal, arrecifes de coral, y una vibra relajada.",
+      "imagen_portada": "assets/img/puerto-viejo-1.jpg",
+      "galeria": [
+        "assets/img/puerto-viejo-1.jpg",
+        "assets/img/puerto-viejo-2.jpg",
+        "assets/img/puerto-viejo-3.jpg"
+      ],
+      "audio": "assets/audio/PuertoViejoTalamanca.mp3",
+      "video": "assets/video/puerto-viejo.mp4",
+      "actividades": ["Buceo en arrecifes", "Surf", "Ciclismo", "Recorridos culturales afrocaribeños"],
       "highlights": [
         "Arrecifes de coral para buceo",
         "Cultura afrocaribeña vibrante",
         "Playas paradisíacas: Punta Uva, Manzanillo"
       ],
-      "imagen_portada": "assets/img/puerto-viejo-1.jpg",
-      "galeria": [
-        "assets/img/puerto-viejo-1.jpg",
-        "assets/img/puerto-viejo-2.jpg",
-        "assets/img/puerto-viejo-3.jpg",
-        "assets/img/puerto-viejo-4.jpg"
-      ]
+      "tooltip": "Pueblo caribeño con playas y ambiente relajado.",
+      "lat": 9.655,
+      "lng": -82.752,
+      "x": 770,
+      "y": 460
     },
     {
       "id": "irazu",
       "nombre": "Volcán Irazú",
-      "tooltip": "Volcán con impresionantes vistas y un gran cráter.",
       "region": "Región Central",
       "tipo": "volcan",
-      "x": 615,
-      "y": 335,
       "descripcion": "El coloso de Costa Rica. A 3.432 metros de altura, este volcán activo ofrece vistas panorámicas de ambos océanos en días despejados.",
-      "highlights": [
-        "Lago cratérico color esmeralda",
-        "Vista de ambos océanos",
-        "Paisaje lunar único"
-      ],
       "imagen_portada": "assets/img/irazu-1.jpg",
       "galeria": [
         "assets/img/irazu-1.jpg",
         "assets/img/irazu-2.jpg",
         "assets/img/irazu-3.jpg"
-      ]
+      ],
+      "audio": "assets/audio/VolcanIrazu.mp3",
+      "video": "assets/video/irazu.mp4",
+      "actividades": ["Senderismo de cráter", "Fotografía de paisaje", "Observación del lago cratérico", "Picnic de montaña"],
+      "highlights": [
+        "Lago cratérico color esmeralda",
+        "Vista de ambos océanos",
+        "Paisaje lunar único"
+      ],
+      "tooltip": "Volcán con impresionantes vistas y un gran cráter.",
+      "lat": 9.979,
+      "lng": -83.852,
+      "x": 615,
+      "y": 335
     },
     {
       "id": "duran",
       "nombre": "Sanatorio Durán",
-      "tooltip": "Antiguo sanatorio famoso por su historia y misterio.",
       "region": "Región Central",
       "tipo": "ruinas",
-      "x": 615,
-      "y": 360,
       "descripcion": "Un viaje al pasado. Las ruinas de este antiguo sanatorio de tuberculosis se alzan majestuosas entre las montañas.",
-      "highlights": [
-        "Ruinas históricas del siglo XX",
-        "Arquitectura de época preservada",
-        "Vistas panorámicas de montañas"
-      ],
       "imagen_portada": "assets/img/duran-1.jpg",
       "galeria": [
         "assets/img/duran-1.jpg",
         "assets/img/duran-2.jpg",
         "assets/img/duran-3.jpg",
         "assets/img/duran-4.jpg"
-      ]
+      ],
+      "audio": "assets/audio/SanatorioDuran.mp3",
+      "video": "assets/video/duran.mp4",
+      "actividades": ["Tours guiados históricos", "Fotografía arquitectónica", "Senderismo de montaña"],
+      "highlights": [
+        "Ruinas históricas del siglo XX",
+        "Arquitectura de época preservada",
+        "Vistas panorámicas de montañas"
+      ],
+      "tooltip": "Antiguo sanatorio famoso por su historia y misterio.",
+      "lat": 9.932,
+      "lng": -83.877,
+      "x": 615,
+      "y": 360
     },
     {
       "id": "corcovado",
       "nombre": "Corcovado",
-      "tooltip": "Parque nacional lleno de biodiversidad y selva tropical.",
       "region": "Pacífico Sur",
       "tipo": "selva",
-      "x": 691,
-      "y": 508,
       "descripcion": "La joya biológica de Costa Rica. National Geographic lo llamó 'el lugar biológicamente más intenso del planeta'.",
-      "highlights": [
-        "Mayor biodiversidad del planeta",
-        "Jaguares, pumas y tapires",
-        "Selva primaria intacta"
-      ],
       "imagen_portada": "assets/img/corcovado-1.jpg",
       "galeria": [
         "assets/img/corcovado-1.jpg",
         "assets/img/corcovado-2.jpg",
         "assets/img/corcovado-3.jpg"
-      ]
+      ],
+      "audio": "assets/audio/Corcovado.mp3",
+      "video": "assets/video/corcovado.mp4",
+      "actividades": ["Senderismo de selva primaria", "Avistamiento de jaguares", "Fotografía de fauna", "Buceo en arrecifes"],
+      "highlights": [
+        "Mayor biodiversidad del planeta",
+        "Jaguares, pumas y tapires",
+        "Selva primaria intacta"
+      ],
+      "tooltip": "Parque nacional lleno de biodiversidad y selva tropical.",
+      "lat": 8.449,
+      "lng": -83.596,
+      "x": 691,
+      "y": 508
     },
     {
       "id": "osa",
       "nombre": "Península de Osa",
-      "tooltip": "Región natural ideal para ecoturismo y aventura.",
       "region": "Pacífico Sur",
       "tipo": "selva",
-      "x": 681,
-      "y": 474,
       "descripcion": "El último paraíso virgen. Una península remota donde la selva tropical se encuentra con el océano Pacífico.",
-      "highlights": [
-        "Ecoturismo de clase mundial",
-        "Bosques lluviosos primarios",
-        "Playas vírgenes y aisladas"
-      ],
       "imagen_portada": "assets/img/osa-1.jpg",
       "galeria": [
         "assets/img/osa-1.jpg",
         "assets/img/osa-2.jpg",
         "assets/img/osa-3.jpg",
         "assets/img/osa-4.jpg"
-      ]
+      ],
+      "audio": "assets/audio/PeninsulaOsa.mp3",
+      "video": "assets/video/osa.mp4",
+      "actividades": ["Ecoturismo", "Kayak de mar", "Observación de delfines", "Pesca deportiva"],
+      "highlights": [
+        "Ecoturismo de clase mundial",
+        "Bosques lluviosos primarios",
+        "Playas vírgenes y aisladas"
+      ],
+      "tooltip": "Región natural ideal para ecoturismo y aventura.",
+      "lat": 8.534,
+      "lng": -83.306,
+      "x": 681,
+      "y": 474
     }
   ]
 }
