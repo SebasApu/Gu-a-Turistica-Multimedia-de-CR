@@ -10,12 +10,33 @@ const COLORES_CARD = {
 
 class DestinoCard extends HTMLElement {
 
+  static get observedAttributes() {
+    return ['destino-id', 'nombre', 'imagen', 'region'];
+  }
+
   constructor() {
     super();
 
     this._destino = null;
 
     this.attachShadow({ mode: 'open' });
+  }
+
+  attributeChangedCallback(attr, anterior, nuevo) {
+    if (anterior === nuevo) return;
+    // Si llegan los atributos básicos, renderizar con ellos
+    const id = this.getAttribute('destino-id');
+    const nombre = this.getAttribute('nombre');
+    if (id && nombre) {
+      this._destino = {
+        id,
+        nombre,
+        imagen_portada: this.getAttribute('imagen') || '',
+        region: this.getAttribute('region') || ''
+      };
+      this.removeAttribute('hidden');
+      this._render();
+    }
   }
 
   mostrar(destino) {
@@ -113,9 +134,9 @@ class DestinoCard extends HTMLElement {
 
       </style>
 
-      <div class="card">
+      <div class="card" role="button" tabindex="0" style="cursor:pointer;">
 
-        <button class="cerrar">×</button>
+        <button class="cerrar" aria-label="Cerrar">×</button>
 
         <div class="region">
           ${d.region}
@@ -138,15 +159,11 @@ class DestinoCard extends HTMLElement {
         }
 
         ${
-          d.highlights?.length
-            ? `
-              <ul>
-                ${d.highlights
-                  .map(h => `<li>${h}</li>`)
-                  .join('')}
-              </ul>
-            `
-            : ''
+          d.actividades?.length
+            ? `<ul>${d.actividades.map(a => `<li>${a}</li>`).join('')}</ul>`
+            : d.highlights?.length
+              ? `<ul>${d.highlights.map(h => `<li>${h}</li>`).join('')}</ul>`
+              : ''
         }
 
       </div>
@@ -154,10 +171,22 @@ class DestinoCard extends HTMLElement {
 
     this.shadowRoot
       .querySelector('.cerrar')
-      .addEventListener(
-        'click',
-        () => this.cerrar()
-      );
+      .addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.cerrar();
+      });
+
+    // Emite 'destino-selected' al hacer clic en la tarjeta
+    this.shadowRoot
+      .querySelector('.card')
+      .addEventListener('click', () => {
+        if (!this._destino?.id) return;
+        this.dispatchEvent(new CustomEvent('destino-selected', {
+          bubbles: true,
+          composed: true,
+          detail: { destinoId: this._destino.id }
+        }));
+      });
   }
 }
 
