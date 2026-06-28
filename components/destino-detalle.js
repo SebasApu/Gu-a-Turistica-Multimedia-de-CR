@@ -189,6 +189,11 @@ class DestinoDetalle extends HTMLElement {
 
 		this.shadowRoot.querySelector("destino-card").mostrar(destino);
 
+		// Lleva la vista al panel de detalle con animación suave
+		requestAnimationFrame(() => {
+			this.scrollIntoView({ behavior: "smooth", block: "start" });
+		});
+
 		const audioMeta = this.audios[destino.id] || {};
 		const audioEl = this.shadowRoot.querySelector("audio-guia");
 		if (audioEl) {
