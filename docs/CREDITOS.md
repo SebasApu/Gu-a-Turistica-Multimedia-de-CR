@@ -2,6 +2,11 @@
 
 ## Imágenes
 
+### Header
+| Archivo | Fuente | Licencia |
+|---|---|---|
+| header.jpg | Unplash https://unsplash.com/es/fotos/arboles-verdes-cerca-del-mar-azul-bajo-el-cielo-azul-durante-el-dia-g0zUgpRaAcs | Licencia Unplash (uso gratuito)
+
 ### Las Catalinas
 | Archivo | Fuente | Licencia |
 |---|---|---|
@@ -65,4 +70,5 @@
 ---
 
 > Las imágenes de Pexels están bajo la [Licencia Pexels](https://www.pexels.com/license/), que permite uso gratuito con o sin atribución.
+> Las imágenes de Unplash están bajo la [Licencia Unplash](https://unsplash.com/es/licencia), que permite uso gratuito con o sin atribución.
 > Las imágenes generadas con IA son producción propia del grupo.
