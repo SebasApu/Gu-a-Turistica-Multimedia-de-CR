@@ -1,55 +1,33 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0" />
-    <title>De volcanes a selvas: explorando Costa Rica</title>
-    <link rel="stylesheet" href="css/global.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
-      rel="stylesheet" />
-  </head>
-  <body>
-    <app-header></app-header>
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0" />
+  <title>De volcanes a selvas: explorando Costa Rica</title>
 
-    <main id="contenido">
-      <mapa-costa-rica></mapa-costa-rica>
-      <destino-detalle></destino-detalle>
-    </main>
+  <link rel="stylesheet" href="css/global.css" />
 
-    <script type="module" src="components/app-header.js"></script>
-    <script type="module" src="components/mapa-costa-rica.js"></script>
-    <script type="module" src="components/destino-detalle.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin />
 
-    <script type="module">
-      const header = document.querySelector("app-header");
-      const mapa = document.querySelector("mapa-costa-rica");
-      const detalle = document.querySelector("destino-detalle");
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
+    rel="stylesheet" />
+</head>
 
-      header?.addEventListener("region-selected", (e) => {
-        mapa?.filtrarPorRegion(e.detail.region);
-      });
+<body>
+  <app-header></app-header>
 
-      document.addEventListener("destino-seleccionado", (e) => {
-        mapa?.marcarDestinoActivo(e.detail.destinoId);
-      });
+  <main id="contenido">
+    <mapa-costa-rica></mapa-costa-rica>
+    <destino-detalle></destino-detalle>
+  </main>
 
-      header?.addEventListener("hero-action", (e) => {
-        if (e.detail.action === "explorar") {
-          mapa?.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-
-        if (e.detail.action === "audio") {
-          detalle?.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      });
-    </script>
-  </body>
+  <script type="module" src="./index.js"></script>
+</body>
 </html>

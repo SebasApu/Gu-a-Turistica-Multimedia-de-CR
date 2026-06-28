@@ -114,8 +114,8 @@ class GaleriaImagenes extends HTMLElement {
         <div class="fondo" id="fondo"></div>
         <img id="foto" src="" alt="Imagen del destino" />
         <span class="vacio" id="vacio" hidden>Sin imágenes disponibles</span>
-        <button id="btn-anterior" aria-label="Anterior">&#8249;</button>
-        <button id="btn-siguiente" aria-label="Siguiente">&#8250;</button>
+        <button type="button" id="btn-anterior" aria-label="Anterior">&#8249;</button>
+        <button type="button" id="btn-siguiente" aria-label="Siguiente">&#8250;</button>
         <span class="contador" id="contador"></span>
       </div>
     `;

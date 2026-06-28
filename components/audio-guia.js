@@ -98,7 +98,7 @@ class AudioGuia extends HTMLElement {
       <div class="card">
         <div class="row">
           <div class="label">${this._label}</div>
-          <button class="btn" aria-label="Reproducir audio">►</button>
+          <button class="btn" type="button" aria-label="Reproducir audio">►</button>
         </div>
 
         <div class="progress-wrap" role="progressbar" tabindex="0" aria-label="Barra de progreso de audio" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0">

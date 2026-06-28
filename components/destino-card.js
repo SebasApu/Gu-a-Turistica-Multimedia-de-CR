@@ -8,12 +8,7 @@ const COLORES_CARD = {
   default: "#6366f1",
 };
 
-const ETIQUETAS_TIPO = {
-  volcan: "Volcán",
-  playa: "Playa",
-  selva: "Selva",
-  ruinas: "Ruinas",
-};
+
 
 class DestinoCard extends HTMLElement {
   static get observedAttributes() {
@@ -21,9 +16,17 @@ class DestinoCard extends HTMLElement {
   }
 
   constructor() {
-    super();
-    this._destino = null;
-    this.attachShadow({ mode: "open" });
+  super();
+  this._destino = null;
+  this._renderizado = false;
+  this.attachShadow({ mode: "open" });
+}
+
+  connectedCallback() {
+    if (!this._renderizado) {
+      this._render();
+      this._renderizado = true;
+    }
   }
 
   attributeChangedCallback(attr, anterior, nuevo) {
@@ -40,26 +43,32 @@ class DestinoCard extends HTMLElement {
         region: this.getAttribute("region") || "",
       };
 
-      this.removeAttribute("hidden");
-      this._render();
+     this.removeAttribute("hidden");
+
+if (!this._renderizado) {
+  this._render();
+  this._renderizado = true;
+}
+
+this._actualizar();
     }
   }
 
   mostrar(destino) {
-    if (this._destino?.id === destino.id) {
-      this.cerrar();
-      return;
-    }
-
     this._destino = destino;
     this.removeAttribute("hidden");
-    this._render();
+
+    if (!this._renderizado) {
+      this._render();
+      this._renderizado = true;
+    }
+
+    this._actualizar();
   }
 
   cerrar() {
     this._destino = null;
     this.setAttribute("hidden", "");
-    this.shadowRoot.innerHTML = "";
   }
 
   _renderLista(items = []) {
@@ -73,19 +82,7 @@ class DestinoCard extends HTMLElement {
   }
 
   _render() {
-    const d = this._destino;
-    if (!d) return;
-
-    const color = COLORES_CARD[d.tipo] || COLORES_CARD.default;
-    const tipoEtiqueta = ETIQUETAS_TIPO[d.tipo] || d.tipo || "Destino";
-    const actividades = d.actividades || [];
-    const highlights = d.highlights || [];
-    const imagen = d.imagen_portada || "";
-    const descripcion =
-      d.descripcion ||
-      "Descubre este destino emblemático con paisajes naturales, experiencias locales y recomendaciones para tu visita.";
-
-    this.shadowRoot.innerHTML = `
+       this.shadowRoot.innerHTML = `
       <style>
         :host {
           display: block;
@@ -177,7 +174,7 @@ class DestinoCard extends HTMLElement {
           text-transform: uppercase;
           letter-spacing: 0.14em;
           font-weight: 800;
-          color: ${color};
+          color: #111827;
         }
 
         h3 {
@@ -300,82 +297,82 @@ class DestinoCard extends HTMLElement {
         }
       </style>
 
-      <article class="card">
-        <div class="body">
-          <div class="topbar">
-            <div>
-              ${d.region ? `<div class="region">${d.region}</div>` : ""}
-              <h3>${d.nombre}</h3>
-            </div>
-
-            <button class="cerrar" aria-label="Cerrar detalle">×</button>
+       <article class="card">
+      <div class="body">
+        <div class="topbar">
+          <div>
+            <div class="region"></div>
+            <h3></h3>
           </div>
-
-          <p class="descripcion">${descripcion}</p>
-
-          <div class="galeria">
-            ${
-              d.galeria?.length
-                ? `<galeria-imagenes imagenes='${JSON.stringify(d.galeria)}'></galeria-imagenes>`
-                : ""
-            }
-          </div>
-
-          <div class="contenido">
-            <section class="bloque">
-              <h4>Qué hacer</h4>
-              ${
-                actividades.length
-                  ? `<ul>${this._renderLista(actividades)}</ul>`
-                  : `<p class="descripcion">Explora senderos, paisajes y experiencias locales en este destino.</p>`
-              }
-            </section>
-
-            <section class="bloque">
-              <h4>Imperdibles</h4>
-              ${
-                highlights.length
-                  ? `<div class="chips">${this._renderChips(highlights)}</div>`
-                  : `<p class="descripcion">Naturaleza, cultura y paisajes inolvidables.</p>`
-              }
-            </section>
-          </div>
-          </div>
+          <button type="button" class="cerrar">×</button>
         </div>
-      </article>
-    `;
 
-    this.shadowRoot.querySelector(".cerrar")?.addEventListener("click", (e) => {
+        <p class="descripcion"></p>
+
+        <div class="galeria">
+          <galeria-imagenes></galeria-imagenes>
+        </div>
+
+        <div class="contenido">
+  <section class="bloque actividades">
+    <h4>Qué hacer</h4>
+    <ul></ul>
+  </section>
+  <section class="bloque highlights">
+    <h4>Imperdibles</h4>
+    <div class="chips"></div>
+  </section>
+</div>
+    </article>
+  `;
+
+    const galeria = this.shadowRoot.querySelector("galeria-imagenes");
+
+    galeria?.addEventListener("click", (e) => {
+      e.stopPropagation();
+    });
+
+    const btnCerrar = this.shadowRoot.querySelector(".cerrar");
+
+    btnCerrar?.addEventListener("click", (e) => {
+      e.preventDefault();
       e.stopPropagation();
       this.cerrar();
     });
-
-    this.shadowRoot
-      .querySelector('[data-action="cerrar"]')
-      ?.addEventListener("click", (e) => {
-        e.stopPropagation();
-        this.cerrar();
-      });
-
-    const emitirSeleccion = () => {
-      if (!this._destino?.id) return;
-      this.dispatchEvent(
-        new CustomEvent("destino-seleccionado", {
-          bubbles: true,
-          composed: true,
-          detail: { destinoId: this._destino.id },
-        }),
-      );
-    };
-
-    this.shadowRoot
-      .querySelector('[data-action="seleccionar"]')
-      ?.addEventListener("click", emitirSeleccion);
-
-    this.shadowRoot.querySelector(".card")?.addEventListener("click", () => {
-      emitirSeleccion();
-    });
   }
+
+    _actualizar() {
+  if (!this._destino) return;
+
+  const d = this._destino;
+  const color = COLORES_CARD[d.tipo] || COLORES_CARD.default;
+
+  this.shadowRoot.querySelector(".region").textContent = d.region || "";
+  this.shadowRoot.querySelector(".region").style.color = color;
+  this.shadowRoot.querySelector("h3").textContent = d.nombre;
+  this.shadowRoot.querySelector(".descripcion").textContent =
+    d.descripcion || "";
+
+  // ✅ Solo actualiza el atributo, nunca destruyas el elemento
+  const galeria = this.shadowRoot.querySelector("galeria-imagenes");
+  galeria.setAttribute("imagenes", JSON.stringify(d.galeria || []));
+
+  // ✅ Actualiza solo el contenido interno de los bloques,
+  //    sin tocar el <section> completo
+  const listaActividades = this.shadowRoot.querySelector(
+    ".actividades ul",
+  );
+  listaActividades.innerHTML = (d.actividades || [])
+    .map((a) => `<li>${a}</li>`)
+    .join("");
+
+  const chipsHighlights = this.shadowRoot.querySelector(
+    ".highlights .chips",
+  );
+  chipsHighlights.innerHTML = (d.highlights || [])
+    .map((h) => `<span class="chip">${h}</span>`)
+    .join("");
+}
 }
 
 customElements.define("destino-card", DestinoCard);

@@ -266,57 +266,56 @@ class DestinoDetalle extends HTMLElement {
     }
   }
 
-  _onDestinoSeleccionado(evento) {
-    const destinoId = evento?.detail?.destinoId;
-    if (!destinoId) return;
+_onDestinoSeleccionado(evento) {
+  const destinoId = evento?.detail?.destinoId;
+  if (!destinoId) return;
 
-    const destino = this.destinos.find((item) => item.id === destinoId);
-    if (!destino) return;
+  const destino = this.destinos.find((item) => item.id === destinoId);
+  if (!destino) return;
 
-    this.destinoSeleccionado = destino;
+  this.destinoSeleccionado = destino;
 
-    const seleccion = this.shadowRoot.querySelector(".estado-seleccion");
-    if (seleccion) {
-      seleccion.hidden = true;
+  const seleccion = this.shadowRoot.querySelector(".estado-seleccion");
+  if (seleccion) seleccion.hidden = true;
+
+  const card = this.shadowRoot.querySelector("destino-card");
+  card?.mostrar(destino);
+
+  // ✅ Obtén el elemento audio-guia y los datos del objeto audios
+  const audioEl = this.shadowRoot.querySelector("audio-guia");
+  const audioMeta = this.audios[destinoId] || {};
+
+  const nuevoSrc = destino.audio || audioMeta.src || "";
+  const nuevoLabel =
+    destino.audioLabel ||
+    audioMeta.label ||
+    `Guía de audio de ${destino.nombre}`;
+  const nuevaDuracion = destino.audioDuration || audioMeta.duration || "";
+
+  if (audioEl) {
+    if (audioEl.getAttribute("src") !== nuevoSrc) {
+      audioEl.setAttribute("src", nuevoSrc);
     }
-
-    const card = this.shadowRoot.querySelector("destino-card");
-    card?.mostrar(destino);
-
-    requestAnimationFrame(() => {
-      this.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-
-    const audioMeta = this.audios[destino.id] || {};
-    const audioEl = this.shadowRoot.querySelector("audio-guia");
-
-    if (audioEl) {
-      audioEl.setAttribute("src", destino.audio || audioMeta.src || "");
-      audioEl.setAttribute(
-        "label",
-        destino.audioLabel ||
-          audioMeta.label ||
-          `Guía de audio de ${destino.nombre}`,
-      );
-
-      if (destino.audioDuration || audioMeta.duration) {
-        audioEl.setAttribute(
-          "duration",
-          destino.audioDuration || audioMeta.duration,
-        );
+    if (audioEl.getAttribute("label") !== nuevoLabel) {
+      audioEl.setAttribute("label", nuevoLabel);
+    }
+    if (String(audioEl.getAttribute("duration")) !== String(nuevaDuracion)) {
+      if (nuevaDuracion) {
+        audioEl.setAttribute("duration", nuevaDuracion);
       } else {
         audioEl.removeAttribute("duration");
       }
     }
-
-    this.dispatchEvent(
-      new CustomEvent("detalle-actualizado", {
-        bubbles: true,
-        composed: true,
-        detail: { destinoId: destino.id },
-      }),
-    );
   }
+
+  this.dispatchEvent(
+    new CustomEvent("detalle-actualizado", {
+      bubbles: true,
+      composed: true,
+      detail: { destinoId: destino.id },
+    }),
+  );
+}
 }
 
 customElements.define("destino-detalle", DestinoDetalle);
