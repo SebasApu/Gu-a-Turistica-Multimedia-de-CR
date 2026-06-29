@@ -2,12 +2,17 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0" />
   <title>De volcanes a selvas: explorando Costa Rica</title>
-  <link rel="stylesheet" href="css/global.css" />
-</head>
-<body>
 
+  <link rel="stylesheet" href="css/global.css" />
+
+
+</head>
+
+<body>
   <app-header></app-header>
 
   <main id="contenido">
@@ -15,16 +20,6 @@
     <destino-detalle></destino-detalle>
   </main>
 
-  <script type="module" src="components/app-header.js"></script>
-  <script type="module" src="components/mapa-costa-rica.js"></script>
-  <script type="module" src="components/destino-detalle.js"></script>
-
-  <script type="module">
-    // Conecta header → mapa: filtra pins y resalta provincias por región
-    document.addEventListener('region-selected', (e) => {
-      document.querySelector('mapa-costa-rica').filtrarPorRegion(e.detail.region);
-    });
-  </script>
-
+  <script type="module" src="./index.js"></script>
 </body>
 </html>
