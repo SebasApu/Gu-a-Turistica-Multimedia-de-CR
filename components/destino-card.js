@@ -17,6 +17,7 @@ class DestinoCard extends HTMLElement {
 
   connectedCallback() {
     this._render();
+    this.setAttribute("hidden", "");  
   }
 
   // ─── API pública ──────────────────────────────────────────────────────────
@@ -43,7 +44,7 @@ class DestinoCard extends HTMLElement {
           font-family: Inter, system-ui, sans-serif;
         }
 
-        :host([hidden]) { display: none; }
+        :host([hidden]) { display: none !important; }
 
         .card {
           overflow: hidden;
@@ -250,6 +251,7 @@ class DestinoCard extends HTMLElement {
     .addEventListener("click", (e) => {
     e.preventDefault();   
     e.stopPropagation();
+    console.log("cerrar destino-card");
     this.cerrar();
     });
   }

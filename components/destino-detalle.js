@@ -173,7 +173,7 @@ class DestinoDetalle extends HTMLElement {
         <div class="layout">
           <div class="principal">
             <div class="estado-seleccion">
-              Selecciona un punto del mapa para descubrir un destino de Costa Rica.
+              ¡Tu próximo destino te espera!
             </div>
             <destino-card hidden></destino-card>
           </div>

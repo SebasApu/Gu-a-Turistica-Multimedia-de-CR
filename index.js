@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.addEventListener("destino-seleccionado", ({ detail }) => {
     mapa?.marcarDestinoActivo(detail.destinoId);
+    detalle?.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
   header?.addEventListener("hero-action", ({ detail }) => {
