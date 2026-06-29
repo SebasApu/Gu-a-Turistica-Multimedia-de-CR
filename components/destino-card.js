@@ -9,15 +9,30 @@ const COLORES_CARD = {
 };
 
 class DestinoCard extends HTMLElement {
+  static get observedAttributes() {
+    return ["destino-id", "nombre", "imagen", "region"];
+  }
+
   constructor() {
     super();
     this._destino = null;
+    this._sincronizando = false;
     this.attachShadow({ mode: "open" });
   }
 
   connectedCallback() {
     this._render();
-    this.setAttribute("hidden", "");  
+    this.setAttribute("hidden", "");
+  }
+
+  attributeChangedCallback(nombre, anterior, nuevo) {
+    if (anterior === nuevo || this._sincronizando) return;
+    if (!this._destino) this._destino = {};
+    if (nombre === "destino-id") this._destino.id = nuevo;
+    if (nombre === "nombre")     this._destino.nombre = nuevo;
+    if (nombre === "imagen")     this._destino.imagen_portada = nuevo;
+    if (nombre === "region")     this._destino.region = nuevo;
+    if (this.shadowRoot?.querySelector(".card")) this._actualizar();
   }
 
   // ─── API pública ──────────────────────────────────────────────────────────
@@ -25,6 +40,12 @@ class DestinoCard extends HTMLElement {
   mostrar(destino) {
     this._destino = destino;
     this.removeAttribute("hidden");
+    this._sincronizando = true;
+    this.setAttribute("destino-id", destino.id || "");
+    this.setAttribute("nombre",     destino.nombre || "");
+    this.setAttribute("imagen",     destino.imagen_portada || "");
+    this.setAttribute("region",     destino.region || "");
+    this._sincronizando = false;
     this._actualizar();
   }
 
@@ -248,12 +269,21 @@ class DestinoCard extends HTMLElement {
       .addEventListener("click", (e) => e.stopPropagation());
 
     this.shadowRoot.querySelector(".cerrar")
-    .addEventListener("click", (e) => {
-    e.preventDefault();   
-    e.stopPropagation();
-    console.log("cerrar destino-card");
-    this.cerrar();
-    });
+      .addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.cerrar();
+      });
+
+    this.shadowRoot.querySelector(".card")
+      .addEventListener("click", () => {
+        if (!this._destino?.id) return;
+        this.dispatchEvent(new CustomEvent("destino-selected", {
+          bubbles: true,
+          composed: true,
+          detail: { destinoId: this._destino.id },
+        }));
+      });
   }
 
   // ─── Actualizar ───────────────────────────────────────────────────────────
