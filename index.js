@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   header?.addEventListener("region-selected", ({ detail }) => {
     mapa?.filtrarPorRegion(detail.region);
+    if (detail.region) {
+      mapa?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   });
 
   document.addEventListener("destino-seleccionado", ({ detail }) => {

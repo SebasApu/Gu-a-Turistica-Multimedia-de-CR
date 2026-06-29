@@ -276,11 +276,6 @@ class AppHeader extends HTMLElement {
             detail: { region },
           }),
         );
-
-        if (region) {
-          document.querySelector("mapa-costa-rica")
-            ?.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
       });
     });
 

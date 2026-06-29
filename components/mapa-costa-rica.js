@@ -392,7 +392,6 @@ class MapaCostaRica extends HTMLElement {
       `;
 
       const seleccionar = () => {
-        this.marcarDestinoActivo(d.id);
         this.dispatchEvent(
           new CustomEvent("destino-seleccionado", {
             bubbles: true,
