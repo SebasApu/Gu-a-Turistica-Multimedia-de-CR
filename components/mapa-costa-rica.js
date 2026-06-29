@@ -33,17 +33,17 @@ class MapaCostaRica extends HTMLElement {
 
   connectedCallback() {
     this.rutaJson = this.getAttribute("destinos") || "./data/destinos.json";
-    this.rutaSvg = this.getAttribute("svg") || "./assets/img/cr.svg";
+    this.rutaSvg  = this.getAttribute("svg")      || "./assets/img/cr.svg";
     this._render();
     this._cargarTodo();
   }
 
+  // ─── Render ───────────────────────────────────────────────────────────────
+
   _render() {
     this.shadowRoot.innerHTML = `
       <style>
-        :host {
-          display: block;
-        }
+        :host { display: block; }
 
         .wrap {
           max-width: 1040px;
@@ -53,16 +53,12 @@ class MapaCostaRica extends HTMLElement {
 
         .mapa {
           background:
-            radial-gradient(
-              circle at top left,
-              rgba(220, 252, 231, 0.7) 0%,
-              transparent 28%
-            ),
+            radial-gradient(circle at top left, rgba(220,252,231,.7) 0%, transparent 28%),
             linear-gradient(180deg, #f8fafc 0%, #f0fdf4 100%);
           border: 1px solid #e5e7eb;
           border-radius: 28px;
           padding: 28px;
-          box-shadow: 0 20px 50px rgba(15, 23, 42, 0.06);
+          box-shadow: 0 20px 50px rgba(15,23,42,.06);
         }
 
         .mapa-header {
@@ -73,9 +69,9 @@ class MapaCostaRica extends HTMLElement {
 
         .eyebrow {
           margin: 0 0 10px;
-          font-size: 0.8rem;
+          font-size: .8rem;
           text-transform: uppercase;
-          letter-spacing: 0.16em;
+          letter-spacing: .16em;
           color: #0f766e;
           font-weight: 800;
         }
@@ -86,7 +82,7 @@ class MapaCostaRica extends HTMLElement {
           font-size: clamp(2rem, 4vw, 2.8rem);
           line-height: 1.1;
           color: #111827;
-          letter-spacing: -0.02em;
+          letter-spacing: -.02em;
         }
 
         .intro {
@@ -107,15 +103,13 @@ class MapaCostaRica extends HTMLElement {
           font-size: 13px;
           font-weight: 700;
           color: #166534;
-          background: rgba(220, 252, 231, 0.96);
+          background: rgba(220,252,231,.96);
           border: 1px solid #86efac;
           border-radius: 999px;
           padding: 6px 16px;
           opacity: 0;
           transform: translateY(-4px);
-          transition:
-            opacity 0.2s ease,
-            transform 0.2s ease;
+          transition: opacity .2s ease, transform .2s ease;
           pointer-events: none;
         }
 
@@ -129,7 +123,7 @@ class MapaCostaRica extends HTMLElement {
           width: 100%;
           border-radius: 22px;
           overflow: hidden;
-          background: rgba(236, 253, 245, 0.65);
+          background: rgba(236,253,245,.65);
         }
 
         .svg-pais,
@@ -140,9 +134,7 @@ class MapaCostaRica extends HTMLElement {
           display: block;
         }
 
-        .svg-pais {
-          min-height: 280px;
-        }
+        .svg-pais { min-height: 280px; }
 
         .svg-pins {
           position: absolute;
@@ -152,28 +144,21 @@ class MapaCostaRica extends HTMLElement {
 
         .svg-pais svg path {
           cursor: pointer;
-          transition:
-            fill 0.25s ease,
-            opacity 0.25s ease,
-            filter 0.25s ease,
-            transform 0.25s ease;
+          transition: fill .25s ease, opacity .25s ease, filter .25s ease;
         }
 
-        .svg-pais svg path:hover,
-        .svg-pais svg path.provincia-hover {
+        .svg-pais svg path:hover {
           fill: #4ade80 !important;
-          filter: drop-shadow(0 0 6px rgba(34, 197, 94, 0.55));
+          filter: drop-shadow(0 0 6px rgba(34,197,94,.55));
         }
 
         .svg-pais svg path.prov-activa {
           fill: #22c55e !important;
-          opacity: 1;
-          filter: drop-shadow(0 0 5px rgba(34, 197, 94, 0.34));
+          filter: drop-shadow(0 0 5px rgba(34,197,94,.34));
         }
 
         .svg-pais svg path.prov-inactiva {
-          opacity: 0.22;
-          filter: none;
+          opacity: .22;
         }
 
         .pin {
@@ -181,28 +166,22 @@ class MapaCostaRica extends HTMLElement {
           pointer-events: all;
         }
 
-        .pin.oculto {
-          display: none;
-        }
-
         .pin.activo .nucleo {
           stroke: #111827;
           stroke-width: 3;
         }
 
-        .pin.activo .halo {
-          opacity: 0.45;
+        .pin.activo .halo,
+        .pin:hover .halo {
+          opacity: .45;
         }
 
-        .halo {
-          opacity: 0.25;
-          transform-origin: center;
-        }
+        .halo { opacity: .25; }
 
         .tooltip {
           pointer-events: none;
           opacity: 0;
-          transition: opacity 0.2s ease;
+          transition: opacity .2s ease;
         }
 
         .pin:hover .tooltip,
@@ -237,7 +216,7 @@ class MapaCostaRica extends HTMLElement {
           width: 12px;
           height: 12px;
           border-radius: 999px;
-          box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.7);
+          box-shadow: 0 0 0 3px rgba(255,255,255,.7);
         }
 
         @media (max-width: 768px) {
@@ -246,9 +225,7 @@ class MapaCostaRica extends HTMLElement {
             border-radius: 22px;
           }
 
-          .intro {
-            font-size: 0.98rem;
-          }
+          .intro { font-size: .98rem; }
         }
       </style>
 
@@ -263,13 +240,10 @@ class MapaCostaRica extends HTMLElement {
             </p>
           </div>
 
-          <div class="provincia-badge">
-            <span></span>
-          </div>
+          <div class="provincia-badge"><span></span></div>
 
           <div class="svg-contenedor">
             <div class="svg-pais"></div>
-
             <svg
               class="svg-pins"
               viewBox="${VIEW_BOX}"
@@ -285,27 +259,37 @@ class MapaCostaRica extends HTMLElement {
     `;
   }
 
+  // ─── Carga ────────────────────────────────────────────────────────────────
+
   async _cargarTodo() {
-    await Promise.all([this._cargarSvg(), this._cargarDestinos()]);
-    this._pintarMarcadores();
-    this._pintarLeyenda();
-    this._aplicarFiltro();
-  }
-
-  async _cargarSvg() {
     try {
-      const resp = await fetch(this.rutaSvg);
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const [svgTexto, data] = await Promise.all([
+        fetch(this.rutaSvg).then((r) => {
+          if (!r.ok) throw new Error(`SVG HTTP ${r.status}`);
+          return r.text();
+        }),
+        fetch(this.rutaJson).then((r) => {
+          if (!r.ok) throw new Error(`JSON HTTP ${r.status}`);
+          return r.json();
+        }),
+      ]);
 
-      let svgTexto = await resp.text();
-      svgTexto = svgTexto.replace(/viewBox="[^"]*"/i, `viewBox="${VIEW_BOX}"`);
-
-      this.shadowRoot.querySelector(".svg-pais").innerHTML = svgTexto;
+      // SVG
+      this.shadowRoot.querySelector(".svg-pais").innerHTML =
+        svgTexto.replace(/viewBox="[^"]*"/i, `viewBox="${VIEW_BOX}"`);
       this._configurarProvincias();
+
+      // Destinos
+      this.destinos = data.destinos || [];
+      this._pintarMarcadores();
+      this._pintarLeyenda();
+      this._aplicarFiltro();
     } catch (err) {
-      console.error("[mapa-costa-rica] error cargando SVG:", err);
+      console.error("[mapa-costa-rica]", err);
     }
   }
+
+  // ─── Provincias ───────────────────────────────────────────────────────────
 
   _configurarProvincias() {
     const badge = this.shadowRoot.querySelector(".provincia-badge span");
@@ -317,177 +301,93 @@ class MapaCostaRica extends HTMLElement {
       if (!nombre) return;
 
       path.addEventListener("mouseenter", () => {
-        path.classList.add("provincia-hover");
         badge.textContent = nombre;
         badge.classList.add("visible");
       });
 
       path.addEventListener("mouseleave", () => {
-        path.classList.remove("provincia-hover");
         badge.classList.remove("visible");
       });
-path.addEventListener("click", () => {
-      if (this._regionActiva) {
-        this._regionActiva = null;
-        this._aplicarFiltro();
-        this.dispatchEvent(
-          new CustomEvent("region-cleared", {
-            bubbles: true,
-            composed: true,
-          }),
-        );
-      }
-    });
-  });
-}
 
-  async _cargarDestinos() {
-    try {
-      const resp = await fetch(this.rutaJson);
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-      const data = await resp.json();
-      this.destinos = data.destinos || [];
-    } catch (err) {
-      console.error("[mapa-costa-rica] error cargando destinos:", err);
-    }
+      path.addEventListener("click", () => {
+        if (this._regionActiva) this._limpiarFiltro();
+      });
+    });
   }
+
+  // ─── Filtro ───────────────────────────────────────────────────────────────
 
   filtrarPorRegion(region) {
     this._regionActiva = region || null;
     this._aplicarFiltro();
   }
 
-  marcarDestinoActivo(destinoId) {
-    this._destinoActivoId = destinoId || null;
-
-    this.shadowRoot.querySelectorAll(".pin").forEach((pin) => {
-      pin.classList.toggle(
-        "activo",
-        pin.getAttribute("data-destino-id") === this._destinoActivoId,
-      );
-    });
+  _limpiarFiltro() {
+    this._regionActiva = null;
+    this._aplicarFiltro();
+    this.dispatchEvent(
+      new CustomEvent("region-cleared", { bubbles: true, composed: true }),
+    );
   }
 
-_aplicarFiltro() {
-  const region = this._regionActiva;
-  const svgEl = this.shadowRoot.querySelector(".svg-pais svg");
+  _aplicarFiltro() {
+    const region  = this._regionActiva;
+    const activas = region ? (PROVINCIAS_POR_REGION[region] ?? []) : [];
+    const svgEl   = this.shadowRoot.querySelector(".svg-pais svg");
 
-  if (svgEl) {
-    const activas = region ? PROVINCIAS_POR_REGION[region] || [] : [];
-
-    svgEl.querySelectorAll("path[id]").forEach((path) => {
+    svgEl?.querySelectorAll("path[id]").forEach((path) => {
       path.classList.remove("prov-activa", "prov-inactiva");
-
       if (region) {
-        if (activas.includes(path.id)) {
-          path.classList.add("prov-activa");
-        } else {
-          path.classList.add("prov-inactiva");
-        }
+        path.classList.add(activas.includes(path.id) ? "prov-activa" : "prov-inactiva");
       }
     });
   }
 
-  this.shadowRoot.querySelectorAll(".pin").forEach((pin) => {
-    pin.classList.remove("oculto");
-  });
-}
+  // ─── Marcadores ───────────────────────────────────────────────────────────
+
+  marcarDestinoActivo(destinoId) {
+    this._destinoActivoId = destinoId || null;
+    this.shadowRoot.querySelectorAll(".pin").forEach((pin) => {
+      pin.classList.toggle(
+        "activo",
+        pin.dataset.destinoId === this._destinoActivoId,
+      );
+    });
+  }
 
   _pintarMarcadores() {
     const grupo = this.shadowRoot.querySelector(".marcadores");
     if (!grupo) return;
-
     grupo.innerHTML = "";
 
     this.destinos.forEach((d) => {
-      const color = COLORES[d.tipo] || COLORES.default;
-      const gPin = document.createElementNS("http://www.w3.org/2000/svg", "g");
-
-      gPin.setAttribute("class", "pin");
-      gPin.setAttribute("transform", `translate(${d.x}, ${d.y})`);
-      gPin.setAttribute("data-destino-id", d.id);
-      gPin.setAttribute("tabindex", "0");
-      gPin.setAttribute("role", "button");
-      gPin.setAttribute("aria-label", `Ver destino ${d.nombre}`);
-
-      const palabras = (d.tooltip || "").split(" ");
-      const lineas = [];
-      let lineaActual = "";
-
-      palabras.forEach((palabra) => {
-        const test = `${lineaActual} ${palabra}`.trim();
-        if (test.length > 32) {
-          if (lineaActual) lineas.push(lineaActual);
-          lineaActual = palabra;
-        } else {
-          lineaActual = test;
-        }
-      });
-
-      if (lineaActual) lineas.push(lineaActual);
-
-      const altura = 42 + lineas.length * 14;
-      const tspans = lineas
-        .map(
-          (linea, i) => `
-            <tspan x="12" dy="${i === 0 ? 0 : 14}">
-              ${linea}
-            </tspan>
-          `,
-        )
+      const color      = COLORES[d.tipo] ?? COLORES.default;
+      const tooltipX   = d.x > 620 ? -250 : 16;
+      const lineas     = this._wrapText(d.tooltip || "", 32);
+      const altura     = 42 + lineas.length * 14;
+      const tspans     = lineas
+        .map((l, i) => `<tspan x="12" dy="${i === 0 ? 0 : 14}">${l}</tspan>`)
         .join("");
 
-      const moverIzquierda = d.x > 620;
-      const tooltipX = moverIzquierda ? -250 : 16;
+      const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
 
-      gPin.innerHTML = `
-        <circle
-          class="halo"
-          r="14"
-          fill="${color}"
-          opacity="0.25"
-        />
+      Object.entries({
+        class:            "pin",
+        transform:        `translate(${d.x},${d.y})`,
+        "data-destino-id": d.id,
+        tabindex:         "0",
+        role:             "button",
+        "aria-label":     `Ver destino ${d.nombre}`,
+      }).forEach(([k, v]) => g.setAttribute(k, v));
 
-        <circle
-          class="nucleo"
-          r="8"
-          fill="${color}"
-          stroke="white"
-          stroke-width="2"
-        />
-
-        <g
-          class="tooltip"
-          transform="translate(${tooltipX},-12)">
-
-          <rect
-            x="0"
-            y="-18"
-            rx="10"
-            ry="10"
-            width="240"
-            height="${altura}"
-            fill="white"
-            stroke="${color}"
-            stroke-width="1.5"
-          />
-
-          <text
-            x="12"
-            y="0"
-            font-size="12"
-            font-weight="700"
-            fill="${color}">
-            ${d.nombre}
-          </text>
-
-          <text
-            x="12"
-            y="20"
-            font-size="10"
-            fill="#374151">
-            ${tspans}
-          </text>
+      g.innerHTML = `
+        <circle class="halo"   r="14" fill="${color}" opacity=".25"/>
+        <circle class="nucleo" r="8"  fill="${color}" stroke="white" stroke-width="2"/>
+        <g class="tooltip" transform="translate(${tooltipX},-12)">
+          <rect x="0" y="-18" rx="10" width="240" height="${altura}"
+                fill="white" stroke="${color}" stroke-width="1.5"/>
+          <text x="12" y="0"  font-size="12" font-weight="700" fill="${color}">${d.nombre}</text>
+          <text x="12" y="20" font-size="10" fill="#374151">${tspans}</text>
         </g>
       `;
 
@@ -502,36 +402,42 @@ _aplicarFiltro() {
         );
       };
 
-      gPin.addEventListener("click", seleccionar);
-      gPin.addEventListener("keydown", (e) => {
+      g.addEventListener("click", seleccionar);
+      g.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
           seleccionar();
         }
       });
 
-      grupo.appendChild(gPin);
+      grupo.appendChild(g);
     });
   }
 
+  // ─── Leyenda ──────────────────────────────────────────────────────────────
+
   _pintarLeyenda() {
-    const tiposPresentes = [...new Set(this.destinos.map((d) => d.tipo))];
-
-    const html = tiposPresentes
-      .map(
-        (tipo) => `
-          <span class="leyenda-item">
-            <span
-              class="leyenda-dot"
-              style="background:${COLORES[tipo] || COLORES.default}">
-            </span>
-            ${ETIQUETAS_TIPO[tipo] || tipo}
-          </span>
-        `,
-      )
+    const tipos = [...new Set(this.destinos.map((d) => d.tipo))];
+    this.shadowRoot.querySelector(".leyenda").innerHTML = tipos
+      .map((tipo) => `
+        <span class="leyenda-item">
+          <span class="leyenda-dot" style="background:${COLORES[tipo] ?? COLORES.default}"></span>
+          ${ETIQUETAS_TIPO[tipo] ?? tipo}
+        </span>
+      `)
       .join("");
+  }
 
-    this.shadowRoot.querySelector(".leyenda").innerHTML = html;
+  // ─── Utilidades ───────────────────────────────────────────────────────────
+
+  _wrapText(texto, maxLen) {
+    return texto.split(" ").reduce((lineas, palabra) => {
+      const ultima = lineas.at(-1) ?? "";
+      const test   = ultima ? `${ultima} ${palabra}` : palabra;
+      return test.length > maxLen
+        ? [...lineas, palabra]
+        : [...lineas.slice(0, -1), test];
+    }, []);
   }
 }
 

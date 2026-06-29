@@ -2,8 +2,6 @@ import "./components/app-header.js";
 import "./components/mapa-costa-rica.js";
 import "./components/destino-detalle.js";
 
-console.log("Aplicación iniciada", Date.now());
-
 document.addEventListener("DOMContentLoaded", () => {
   const header = document.querySelector("app-header");
   const mapa = document.querySelector("mapa-costa-rica");

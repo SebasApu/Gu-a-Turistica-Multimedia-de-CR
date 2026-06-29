@@ -7,7 +7,7 @@ class GaleriaImagenes extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this._imagenes = [];
-    this._indice = 0;
+    this._indice   = 0;
   }
 
   connectedCallback() {
@@ -19,26 +19,28 @@ class GaleriaImagenes extends HTMLElement {
   attributeChangedCallback(nombre, anterior, nuevo) {
     if (nombre === "imagenes" && nuevo !== anterior) {
       this._imagenes = JSON.parse(nuevo);
-      this._indice = 0;
+      this._indice   = 0;
       this._actualizar();
     }
   }
+
+  // ─── Render ───────────────────────────────────────────────────────────────
 
   _render() {
     this.shadowRoot.innerHTML = `
       <style>
         :host {
           display: block;
-          width: 100%; /* 1. Obligamos al componente a no desbordar su padre */
+          width: 100%;
           font-family: system-ui, sans-serif;
         }
 
         .galeria {
           position: relative;
-          width: 100%; /* 2. Ancho estricto */
+          width: 100%;
           border-radius: 12px;
           overflow: hidden;
-          aspect-ratio: 16 / 9; /* La caja siempre mantendrá esta proporción */
+          aspect-ratio: 16 / 9;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -49,33 +51,32 @@ class GaleriaImagenes extends HTMLElement {
           inset: -20px;
           background-size: cover;
           background-position: center;
-          filter: blur(6px) brightness(0.95);
+          filter: blur(6px) brightness(.95);
           transform: scale(1.1);
           z-index: 0;
         }
 
         img {
-          position: absolute; /* 3. Sacamos la imagen del flujo normal */
-          inset: 0; /* Hace que ocupe desde las coordenadas 0,0,0,0 */
+          position: absolute;
+          inset: 0;
           width: 100%;
           height: 100%;
-          object-fit: contain; /* Mantiene la proporción de la imagen sin deformarla */
+          object-fit: contain;
           display: block;
-          transition: opacity 0.3s ease;
+          transition: opacity .3s ease;
           z-index: 1;
-          /* background: #f3f4f6; (Puedes quitar el background aquí para que el '.fondo' borroso se vea mejor a través de los espacios vacíos) */
         }
 
         .vacio {
           color: #9ca3af;
-          font-size: 0.9rem;
+          font-size: .9rem;
         }
 
         button {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-          background: rgba(0, 0, 0, 0.5);
+          background: rgba(0,0,0,.5);
           border: none;
           color: #fff;
           font-size: 1.5rem;
@@ -86,51 +87,56 @@ class GaleriaImagenes extends HTMLElement {
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: background 0.2s;
-          z-index: 1;
+          transition: background .2s;
+          z-index: 2;
         }
 
-        button:hover {
-          background: rgba(0, 0, 0, 0.8);
-        }
+        button:hover { background: rgba(0,0,0,.8); }
 
-        #btn-anterior { left: 0.75rem; }
-        #btn-siguiente { right: 0.75rem; }
+        #btn-anterior  { left: .75rem; }
+        #btn-siguiente { right: .75rem; }
 
         .contador {
           position: absolute;
-          bottom: 0.5rem;
+          bottom: .5rem;
           left: 50%;
           transform: translateX(-50%);
-          background: rgba(0, 0, 0, 0.5);
+          background: rgba(0,0,0,.5);
           color: #fff;
-          font-size: 0.75rem;
-          padding: 0.2rem 0.6rem;
+          font-size: .75rem;
+          padding: .2rem .6rem;
           border-radius: 99px;
+          z-index: 2;
         }
       </style>
 
       <div class="galeria">
         <div class="fondo" id="fondo"></div>
-        <img id="foto" src="" alt="Imagen del destino" />
+        <img id="foto" src="" alt="" />
         <span class="vacio" id="vacio" hidden>Sin imágenes disponibles</span>
-        <button type="button" id="btn-anterior" aria-label="Anterior">&#8249;</button>
+        <button type="button" id="btn-anterior"  aria-label="Anterior">&#8249;</button>
         <button type="button" id="btn-siguiente" aria-label="Siguiente">&#8250;</button>
         <span class="contador" id="contador"></span>
       </div>
     `;
 
-    this.shadowRoot.getElementById("btn-anterior").addEventListener("click", (e) => {
-      e.stopPropagation();
-      this._navegar(-1);
-    });
-    this.shadowRoot.getElementById("btn-siguiente").addEventListener("click", (e) => {
-      e.stopPropagation();
-      this._navegar(1);
-    });
+    // Cache de elementos — evita getElementById en cada actualización
+    this._els = {
+      foto:         this.shadowRoot.getElementById("foto"),
+      fondo:        this.shadowRoot.getElementById("fondo"),
+      vacio:        this.shadowRoot.getElementById("vacio"),
+      contador:     this.shadowRoot.getElementById("contador"),
+      btnAnterior:  this.shadowRoot.getElementById("btn-anterior"),
+      btnSiguiente: this.shadowRoot.getElementById("btn-siguiente"),
+    };
+
+    this._els.btnAnterior.addEventListener("click",  (e) => { e.stopPropagation(); this._navegar(-1); });
+    this._els.btnSiguiente.addEventListener("click", (e) => { e.stopPropagation(); this._navegar(1);  });
 
     this._actualizar();
   }
+
+  // ─── Navegación ───────────────────────────────────────────────────────────
 
   _navegar(direccion) {
     if (!this._imagenes.length) return;
@@ -138,46 +144,33 @@ class GaleriaImagenes extends HTMLElement {
     this._actualizar();
   }
 
+  // ─── Actualizar ───────────────────────────────────────────────────────────
+
   _actualizar() {
-    if (!this.shadowRoot.getElementById) return;
-
-    const foto = this.shadowRoot.getElementById("foto");
-    const vacio = this.shadowRoot.getElementById("vacio");
-    const contador = this.shadowRoot.getElementById("contador");
-    const btnAnterior = this.shadowRoot.getElementById("btn-anterior");
-    const btnSiguiente = this.shadowRoot.getElementById("btn-siguiente");
-
+    const { foto, fondo, vacio, contador, btnAnterior, btnSiguiente } = this._els ?? {};
     if (!foto) return;
 
-    const hayImagenes = this._imagenes.length > 0;
+    const hay = this._imagenes.length > 0;
 
-    foto.hidden = !hayImagenes;
-    vacio.hidden = hayImagenes;
-    btnAnterior.hidden = !hayImagenes;
-    btnSiguiente.hidden = !hayImagenes;
-    contador.hidden = !hayImagenes;
+    foto.hidden         = !hay;
+    vacio.hidden        =  hay;
+    btnAnterior.hidden  = !hay;
+    btnSiguiente.hidden = !hay;
+    contador.hidden     = !hay;
 
-    const fondo = this.shadowRoot.getElementById("fondo");
+    if (!hay) return;
 
-    if (hayImagenes) {
-      const src = this._imagenes[this._indice];
-      foto.style.opacity = '0';
-      
-      // Resetea la imagen para forzar la recarga
-      foto.src = '';
-      
-      // Espera a que la imagen cargue
-      const handleLoad = () => {
-        if (fondo) fondo.style.backgroundImage = `url('${src}')`;
-        foto.style.opacity = '1';
-        foto.removeEventListener('load', handleLoad);
-      };
-      
-      foto.addEventListener('load', handleLoad);
-      foto.src = src;
-      foto.alt = `Imagen ${this._indice + 1} de ${this._imagenes.length}`;
-      contador.textContent = `${this._indice + 1} / ${this._imagenes.length}`;
-    }
+    const src = this._imagenes[this._indice];
+
+    foto.style.opacity = "0";
+    foto.addEventListener("load", () => {
+      fondo.style.backgroundImage = `url('${src}')`;
+      foto.style.opacity = "1";
+    }, { once: true });
+
+    foto.src = src;
+    foto.alt = `Imagen ${this._indice + 1} de ${this._imagenes.length}`;
+    contador.textContent = `${this._indice + 1} / ${this._imagenes.length}`;
   }
 }
 
